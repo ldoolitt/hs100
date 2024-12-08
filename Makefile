@@ -1,7 +1,10 @@
 target  = hs100
 objects = comms.o handlers.o hs100.o escape.o
 
-CFLAGS  = -std=gnu99 -Wall -Werror
+CFLAGS  = -std=c99 -DDEFAULT_SOURCE -Wall -Werror
+# for those who like their warnings turned up to 11
+CFLAGS += -Wextra -Wstrict-prototypes -Wmissing-prototypes -Wshadow -pedantic
+CFLAGS += -Wpointer-arith -Wcast-align -Wcast-qual -Wwrite-strings -Wundef
 
 MACHINE := $(shell $(CC) -dumpmachine)
 $(info MACHINE="$(MACHINE)")
