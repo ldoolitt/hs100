@@ -19,7 +19,7 @@
 
 static bool hs100_encrypt(uint8_t *d, const uint8_t *s, size_t len)
 {
-	uint8_t key, temp;
+	uint8_t key;
 	size_t i;
 
 	if (d == NULL)
@@ -31,7 +31,7 @@ static bool hs100_encrypt(uint8_t *d, const uint8_t *s, size_t len)
 
 	key = 0xab;
 	for (i = 0; i < len; i++) {
-		temp = key ^ s[i];
+		uint8_t temp = key ^ s[i];
 		key = temp;
 		d[i] = temp;
 	}
@@ -40,7 +40,7 @@ static bool hs100_encrypt(uint8_t *d, const uint8_t *s, size_t len)
 
 static bool hs100_decrypt(uint8_t *d, const uint8_t *s, size_t len)
 {
-	uint8_t key, temp;
+	uint8_t key;
 	size_t i;
 
 	if (d == NULL)
@@ -52,7 +52,7 @@ static bool hs100_decrypt(uint8_t *d, const uint8_t *s, size_t len)
 
 	key = 0xab;
 	for (i = 0; i < len; i++) {
-		temp = key ^ s[i];
+		uint8_t temp = key ^ s[i];
 		key = s[i];
 		d[i] = temp;
 	}
@@ -182,7 +182,7 @@ char *hs100_send(const char *servaddr, const char *msg)
 	}
 	msglen = ntohl(msglen) + 4;
 	recvbuf = calloc(1, (size_t) msglen);
-	recvsize = recv(sock, recvbuf, msglen, MSG_WAITALL);
+	(void) recv(sock, recvbuf, msglen, MSG_WAITALL);
 #ifdef _WIN32
 	closesocket(sock);
 #else
